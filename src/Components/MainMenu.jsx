@@ -39,7 +39,9 @@ const MainMenu = (props) => {
       </motion.button>
 
       <div className="lastone">
-        <h3>Last one :</h3>
+        <h3 style={consom() ? { display: "block" } : { display: "none" }}>
+          Last one :
+        </h3>
 
         <span>{consom()}</span>
       </div>
