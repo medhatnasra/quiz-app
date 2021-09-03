@@ -1,24 +1,43 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { useEffect, useState } from "react";
+import MainMenu from "./Components/MainMenu";
+import Quiz from "./Components/Quiz";
+import EndScreen from "./Components/EndScreen";
+import { QuizContext } from "./Helpers/QuizContext";
 
 function App() {
+  const [GameState, setGameState] = useState("menu");
+  const [Score, setScore] = useState(0);
+  const [Error, setError] = useState(false);
+
+  useEffect(() => {
+  }, [Score]);
+
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <>
+      <h1 className="title">QuizApp</h1>
+      <div
+        className="app"
+        style={
+          Error
+            ? {
+                background:
+                  "linear-gradient(to right top, #142c47, rgba(148, 4, 4,.3))",
+              }
+            : {}
+        }
+      >
+        <QuizContext.Provider
+          value={{ GameState, setGameState, Score, setScore, setError, Error }}
         >
-          Learn React
-        </a>
-      </header>
-    </div>
+          {GameState === "menu" && <MainMenu  />}
+          {GameState === "quiz" && <Quiz />}
+          {GameState === "end" && <EndScreen />}
+        </QuizContext.Provider>
+      </div>
+    </>
   );
 }
 
